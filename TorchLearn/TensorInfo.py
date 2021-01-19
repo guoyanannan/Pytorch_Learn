@@ -6,12 +6,12 @@ import torchvision
 #例子1：torch.tensor()：直接导入的方式
 flag = False
 if flag:
+    # 均匀分布
     a = np.random.rand(5,2)
     print(f'ndarray数据类型：{a.dtype}',a)
 
     b = torch.tensor(a)
     print(f'Tensor的数据类型：{b.dtype}',b)
-
 
 #例子2：从numpy创建tensor,改变tensor或numpy的值对方也随之改变
 flag = False
@@ -35,40 +35,44 @@ if flag:
 flag = False
 if flag:
     o_t = torch.tensor([2,2,2])
+
     print('原始张量o_t类型:', o_t.dtype)
     print('原始张量o_t:',o_t)
+
+    ##out:将输出结果赋予变量:必须是张量？——
     c_t = torch.zeros(3,3,out=o_t)
-    print('经过out赋值猴的0_t',o_t)
+    print('经过out赋值后的0_t',o_t)
     print('依据数值创建的张量0_t',c_t)
 
 #3.2 torch.zeros_like()
 flag = False
 if flag:
     oo_t = torch.rand((3,3))
+    #zeross_like(参数需要也是tensor)
     o_t = torch.zeros_like(oo_t)
-    print(oo_t,o_t)
+    print(oo_t,'\n',o_t)
 
 #3.3 torch.full_like()
 #总结out输出值的接受变量类型需要和输出者保持一致
 flag =False
 if flag:
     a = torch.tensor([1])
-    o_t = torch.full((3,3),1.1,out=a)
-    print(o_t)
+    o_t = torch.full((3,3),1.3,out=a)
+    print(o_t,'\n',a)
     o_l_t = torch.full_like(o_t,fill_value=4)
     print(o_l_t)
 
 
 #3.4 torch.arange() 创建等差一维张量,torch.linspace()常见均分一维张量，torch.logspace()创建对数均分的一维张量，torch.eye()创建单位对角矩阵
-flag = False
+flag = True
 if flag:
-    o_t = torch.arange(1,10,2)
+    o_t = torch.arange(1,10,2) #argument 3：stride
     print(o_t,'\n',o_t.dtype)
-    o_t = torch.linspace(1,10,10)
+    o_t = torch.linspace(1,10,5)#argument 3：number
     print(o_t,'\n',o_t.dtype)
-    o_t = torch.logspace(1,10,3)
+    o_t = torch.logspace(1,10,3)#argument 3：number
     print(o_t,'\n',o_t.dtype)
-    o_t = torch.eye(3,6)  #n,m 设置一个即可，默认创建方阵
+    o_t = torch.eye(3,6)  #n,m 设置一个或者都设置都可以，设置一个创建方阵
     print(o_t, '\n', o_t.dtype)
 
 
@@ -109,7 +113,7 @@ if flag:
     print(o_t, '\n', o_t.dtype)
 
 #4.3 排列分布，伯努利分布 ： torch.randperm()  torch.bernoulli()
-flag = True
+flag = False
 if flag:
     o_t = torch.randperm(4)
     print(o_t, '\n', o_t.dtype)
