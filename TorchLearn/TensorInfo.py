@@ -64,7 +64,7 @@ if flag:
 
 
 #3.4 torch.arange() 创建等差一维张量,torch.linspace()常见均分一维张量，torch.logspace()创建对数均分的一维张量，torch.eye()创建单位对角矩阵
-flag = True
+flag = False
 if flag:
     o_t = torch.arange(1,10,2) #argument 3：stride
     print(o_t,'\n',o_t.dtype)
@@ -81,18 +81,21 @@ if flag:
 flag = False
 if flag:
     #mean:张量 std：张量
-    mean = torch.arange(1,5,dtype=torch.float)
+    mean = torch.arange(1,5,dtype=torch.float)  # type:torch.tensor
     std = torch.arange(1,5,dtype=torch.float)
-    print('mean:',mean)
+    print('mean:',mean,mean.dtype)
     print('std:',std)
+    #当参数1和参数2都是tensor时，无法定义形状，输出和max(mean，std)形状一样
     o_t = torch.normal(mean,std)
     print(o_t, '\n', o_t.dtype)
     #mean:张量 std：张量
-    o_t = torch.normal(0,1,(3,3))
+    #当mean和std是float时，可以定义形状
+    o_t = torch.normal(0.0,1.0,(3,3))
     print(o_t, '\n', o_t.dtype)
 
 #4.2 torch.randn() 创建标准正态分布的张量,torch.randn_like()
-#torch.rand()创建均匀分布 torch.randint()创建整数型均匀分布
+#torch.rand()创建均匀分布 torch.randint()创建整数型[Low,Hight)分布
+#多维
 flag = False
 if flag:
     o_t = torch.randn((3,3))
@@ -103,21 +106,23 @@ if flag:
     o_t = torch.rand((5,5))
     print(o_t, '\n', o_t.dtype)
     o_t = torch.ones((2,3))
+    #rand_like()传入变量类型需要是tensor
     o_t = torch.rand_like(o_t)
     print(o_t, '\n', o_t.dtype)
 
     o_t = torch.randint(1,5,(3,3))
     print(o_t, '\n', o_t.dtype)
-    o_t = torch.ones((2,3))
+    o_t = torch.ones((2,3))  #type:torch.float
+    print(o_t, '\n', o_t.dtype)
     o_t = torch.randint_like(o_t,1,5)
     print(o_t, '\n', o_t.dtype)
 
 #4.3 排列分布，伯努利分布 ： torch.randperm()  torch.bernoulli()
 flag = False
 if flag:
-    o_t = torch.randperm(4)
+    o_t = torch.randperm(4) #从0-3随机排列，默认torch.int64
     print(o_t, '\n', o_t.dtype)
     pre = torch.rand(1) #0-1之间的均匀分布
     print(pre)
-    BNL_T = torch.bernoulli(pre)
+    BNL_T = torch.bernoulli(pre)  #以input为概率，生成伯努利分布（非0即1）
     print(BNL_T, '\n', o_t.dtype)

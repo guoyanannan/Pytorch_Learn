@@ -3,7 +3,7 @@ import torch
 
 # 张量的操作运算
 ####---------------------拼接和切分--------------------------####
-flag = False
+flag =False
 if flag:
     t = torch.ones((5,2))
     t_cats = torch.cat((t,t),dim=1)
@@ -11,11 +11,11 @@ if flag:
     t_1_cats = torch.stack((t,t),dim=0) #创建一个新的维度并在此进行拼接
     print(t_1_cats, '\n', t_1_cats.shape)
     print('-----------------chunks-------------------')
-    t_chunks = torch.chunk(t,3,dim=0)
+    t_chunks = torch.chunk(t,3,dim=0)#1:要切分得张量 2:要切分的份数 3:要切分得维度
     for idx,t1 in enumerate(t_chunks):
         print(f'tensor_{idx}:{t1},形状为{t1.shape}')
     print('-----------------split-------------------')
-    t_splits = torch.split(t,[1,3,1],dim=0)
+    t_splits = torch.split(t,[1,3,1],dim=0) #1:要切分得张量 2:int时表示每份的长度 list表示每一份各自的长度 3:要切分的维度
     for idx,t2 in enumerate(t_splits):
         print(f'tensor_{idx}:{t2},形状为{t2.shape}')
 
@@ -27,7 +27,7 @@ if flag:
     t[1:3,:] = 2
     print(f'原始数据:\n{t}')
     idx = torch.tensor([1,2,0],dtype=torch.long)
-    t_selects = torch.index_select(t,dim=1,index=idx) #依照index索引重新拼接的张量
+    t_selects = torch.index_select(t,dim=1,index=idx) #依照index索引并重新拼接为新的张量
     print(f'重组后的tensor:\n{t_selects}')
     for id,t in enumerate(t_selects):
         print(f'tensor_{id}:{t},形状是{t.shape}')
@@ -35,6 +35,7 @@ if flag:
     ####---------------------依照mask重新拼接的张量--------------------------####
     t1 = torch.randint(0,9,(3,3))
     print(f'原始数据t1:\n{t1}')
+    #ge:>= gt:> le:<= lt:<
     mask = t1.ge(6)                   #type:tensor
     print(f"mask:\n{mask}")
     t2 = torch.rand((3,3)) *10
@@ -45,7 +46,8 @@ if flag:
 ####---------------------张量的转换--------------------------####
 Isreshape = False
 if Isreshape:
-    t = torch.randint(1,11,(2,5))
+    #randint: [low,high) 区间随机分布
+    t = torch.randint(1,11,(2,5),device='cuda')
     t_r = torch.reshape(t,(-1,5,2))
     print(f'原始数据:\n{t}{t.shape}\n转换后数据:\n{t_r}{t_r.shape}')
 Istranspose = False
@@ -58,17 +60,18 @@ if Istranspose:
 Issqueeze = False
 if Issqueeze:
     t = torch.randn((1,4,4,1))
+    #dim默认为None,表示移除所有长度为1的轴，不为None时指定维度仅当该轴长度为1时进行移除
     t_s = torch.squeeze(t)
     t_1 = torch.squeeze(t,dim=1)
     t_3 = torch.squeeze(t,dim=3)
     print(t_s,t_s.shape,'\n',t_1,t_1.shape,'\n',t_3,t_3.shape)
 Isunsqueeze = False
 if Isunsqueeze:
-    t = torch.randperm(9)
-    print(t,t.shape)
+    t = torch.randperm(9) #排列分布,一维张量
+    print(t,t.shape,) #t.size()等价于t.shape
     t = torch.reshape(t,(-1,3))
     print(t,t.shape)
-    t = torch.unsqueeze(t,dim=0)
+    t = torch.unsqueeze(t,dim=0)  #在指定维度上增加长度为1的轴
     print(t,t.shape)
 
 ####---------------------张量的数学运算--------------------------####
