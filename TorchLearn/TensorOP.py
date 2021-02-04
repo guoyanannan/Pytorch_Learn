@@ -6,12 +6,12 @@ import torch
 flag =False
 if flag:
     t = torch.ones((5,2))
-    t_cats = torch.cat((t,t),dim=1)
-    print(t_cats,'\n',t_cats.shape)
-    t_1_cats = torch.stack((t,t),dim=0) #创建一个新的维度并在此进行拼接
-    print(t_1_cats, '\n', t_1_cats.shape)
+    t_cats = torch.cat((t,t),dim=1) ##对第二个维度进行拼接 ->(5,4)
+    print(t_cats,'\n',t_cats.shape,'\n',t_cats.dtype)
+    t_1_cats = torch.stack((t,t),dim=0) #创建一个新的维度并在此进行拼接 ->(2,5,2)
+    print(t_1_cats, '\n', t_1_cats.shape, '\n',t_1_cats.dtype)
     print('-----------------chunks-------------------')
-    t_chunks = torch.chunk(t,3,dim=0)#1:要切分得张量 2:要切分的份数 3:要切分得维度
+    t_chunks = torch.chunk(t,3,dim=0)#1:要切分得张量 2:要切分的份数 3:要切分得维度 ->(2,2),(2,2).(1,2)
     for idx,t1 in enumerate(t_chunks):
         print(f'tensor_{idx}:{t1},形状为{t1.shape}')
     print('-----------------split-------------------')
@@ -49,6 +49,7 @@ if Isreshape:
     #randint: [low,high) 区间随机分布
     t = torch.randint(1,11,(2,5),device='cuda')
     t_r = torch.reshape(t,(-1,5,2))
+    # t_r = torch.reshape(t,(5,2)) #也可以的
     print(f'原始数据:\n{t}{t.shape}\n转换后数据:\n{t_r}{t_r.shape}')
 Istranspose = False
 if Istranspose:
