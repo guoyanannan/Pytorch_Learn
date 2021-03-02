@@ -3,8 +3,15 @@ import torch
 
 # 张量的操作运算
 ####---------------------拼接和切分--------------------------####
-flag =False
+flag =True
 if flag:
+    ##增加可视化一维数据拼接数组形状状态
+    a = torch.tensor([1,])
+    b = torch.tensor([2,])
+    a_b = torch.cat([a,b],dim=0)
+    print(a_b,a_b.shape,a_b.dtype)
+
+
     t = torch.ones((5,2))
     t_cats = torch.cat((t,t),dim=1) ##对第二个维度进行拼接 ->(5,4)
     print(t_cats,'\n',t_cats.shape,'\n',t_cats.dtype)

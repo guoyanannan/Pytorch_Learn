@@ -2,7 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 torch.manual_seed(10)
 
-lr = 0.05  # 学习率    20191015修改
+lr = 0.05  # 学习率
 
 # 创建训练数据
 x = torch.rand(20, 1) * 10  # x data (tensor), shape=(20, 1)
@@ -24,11 +24,11 @@ for iteration in range(1000):
     # 反向传播
     loss.backward()
 
-    # 更新参数
+    # 更新参数 subtract
     b.data.sub_(lr * b.grad)
     w.data.sub_(lr * w.grad)
 
-    # 清零张量的梯度   20191015增加
+    # 清零张量的梯度
     w.grad.zero_()
     b.grad.zero_()
 

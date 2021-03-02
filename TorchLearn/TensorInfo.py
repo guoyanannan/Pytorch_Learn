@@ -94,7 +94,7 @@ if flag:
     print(o_t, '\n', o_t.dtype)
 
 #4.2 torch.randn() 创建标准正态分布的张量,torch.randn_like()
-#torch.rand()创建均匀分布 torch.randint()创建整数型[Low,Hight)分布
+#torch.rand()0-1之间创建均匀分布 torch.randint()创建整数型[Low,Hight)分布
 #多维
 flag = False
 if flag:
